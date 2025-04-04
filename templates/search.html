@@ -1,17 +1,24 @@
+ <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  <script type="text/javascript" async
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+  </script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Results</title>
     <!-- <link rel="stylesheet" href="../css/style.css"> -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
     <!-- <script src="../js/script.js"></script> -->
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </head>
-<body>
+
     <form action="" class="form-container" id="advanced-search">
-        <div>  <!-- filtering options by prefix | It is our choice how we will do this. 
+        <div>  <!-- filtering options by prefix | It is our choice how we will do this.
             When the user selects all, we decide if "all" just means the 3 other options, or if that includes journal reference, publish date, etc. For now, we can stick to the first -->
             <label>Find term in:</label>
             <br>
@@ -48,14 +55,22 @@
             </ul>
         </nav>
     </header>
-    <main>
-        By default this will have the latest articles or something. So we would need to get some articles from the very start. Then when the user clicks the search button, the results will then overwrite whatever was here orignally. We can show 10 results at once, then include a paging feature. The api documentation shows how we can do that.
-        <div id="results"></div>
-    </main>
 
     <!-- footer here -->
     <!-- Maybe delete label since we have placeholder -->
     <!-- <label for="search-query">Search:</label> -->
     <!-- <input type="text" name="search-query" id="search-query" placeholder="Search..."><button id="search">Search</button><button id="filter">Filter</button> -->
 
+ {% for value in articles.values() %}
+	<tr>
+        <td>Link : <a href = {{value["link"]}}> Click here to see the details</a> </td><br>
+        <td>Published Date: {{ value["published"] }}</td><br>
+		<td>Title : {{ value["title"] }}</td><br>
+        <td>Summary : {{ value["summary"] }}</td><br>
+		<td>Authors : {{ value["authors"] }}</td><br>
+	</tr>
+    <br>
+{% endfor %}
+
+</body>
 </html>

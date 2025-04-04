@@ -1,6 +1,9 @@
+import urllib.request
 from xml.etree import ElementTree
 import requests
 from flask import Flask, jsonify, render_template, request
+import urllib, urllib.request
+import feedparser
 
 app = Flask(__name__)
 # app.static_folder = 'static'
@@ -12,24 +15,52 @@ ARXIV_API_URL = "http://export.arxiv.org/api/query?"
 def index():
     return render_template('index.html')
 
-@app.route('/search', methods=['GET'])
+@app.route('/search', methods=['GET','POST'])
 def search():
     query = request.args.get('query', type=str)
     max_results = request.args.get('max_results', default=5, type=int)
+    target = ""
+    if request.method == 'POST':
+        target = request.form["search-query"]
+    if not target:
+        target = "None"
 
-    # Construct arXiv API query
-    params = {
-        'search_query': f'all:{query}',
-        'start': 0,
-        'max_results': max_results,
-        'sortBy': 'submittedDate',
-        'sortOrder': 'descending'
-    }
+    params = [
+        'search_query=' + f'all:{target}',
+        'start=' + f'{0}',
+        'max_results='+ f'{max_results}',
+        'sortBy=submittedDate',
+        'sortOrder=descending'
+    ]
 
-    response = requests.get(ARXIV_API_URL, params=params)
-    articles = parse_arxiv_data(response.text)
+    url = 'http://export.arxiv.org/api/query?' + '&'.join(params)
+    data = urllib.request.urlopen(url)
 
-    return jsonify(articles)
+    feed = feedparser.parse(data)
+    results = {}
+    for i in range(max_results):
+        results.setdefault(i, {})
+    count = 0
+
+    for entry in feed.entries:
+        #Can add any info if needed
+        title = entry.title
+        results[count].setdefault("title",title)
+
+        authors = ', '.join(author.name for author in entry.authors)
+        results[count].setdefault("authors", authors)
+
+        summary = entry.summary
+        results[count].setdefault("summary",summary)
+
+        link = entry.id
+        results[count].setdefault("link",link)
+
+        published = entry.published
+        results[count].setdefault("published", published)
+
+        count+=1
+    return render_template("search.html", articles = results,start = 0)
 
 # Parse the XML response
 def parse_arxiv_data(xml_data):   
