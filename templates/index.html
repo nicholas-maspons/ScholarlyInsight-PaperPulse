@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <!-- <link rel="stylesheet" href="../css/style.css"> -->
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+     <!-- <script src="../js/script.js"></script> -->
+     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+ </head>
+ <body>
+     <form action="" class="form-container" id="advanced-search">
+         <div>  <!-- filtering options by prefix | It is our choice how we will do this. 
+             When the user selects all, we decide if "all" just means the 3 other options, or if that includes journal reference, publish date, etc. For now, we can stick to the first -->
+             <label>Find term in:</label>
+             <br>
+             <label><input type="checkbox" name="prefix" value="ti">Title</label>
+             <label><input type="checkbox" name="prefix" value="au">Author</label>
+             <label><input type="checkbox" name="prefix" value="abs">Abstract</label>
+             <label><input type="checkbox" name="prefix" value="all" id="all-prefix">All</label>
+         </div>
+         <div>  <!-- filtering options by subject. there are more, but this is for now  -->
+             <label>Include categories:</label>
+             <br>
+             <label><input type="checkbox" name="subject" value="cs">Computer Science</label>
+             <label><input type="checkbox" name="subject" value="econ">Economics</label>
+             <label><input type="checkbox" name="subject" value="math">Mathematics</label>
+             <label><input type="checkbox" name="subject" value="stat">Statistics</label>
+         </div>
+     </form>
+ 
+ 
+     <header>
+         <h1><a href="index.html">Paper Pulse</a></h1>
+         <div>
+             <input type="text" name="search-query" id="search-query" placeholder="Search term...">
+             <a class="button" id="search">Search</a>
+             <a class="button" id="toggle-filter">Filter</a>
+         </div>
+         <nav>
+             <ul>
+                 <!-- when a user is signed in, this will be replaced by a single element. how? -->
+                 <li><a class="button" href="account.html">Sign In</a></li>
+                 <li><a class="button" href="account.html">Sign Up</a></li>
+             </ul>
+         </nav>
+     </header>
+     <main>
+         <!-- By default this will have the latest articles or something. So we would need to get some articles from the very start. Then when the user clicks the search button, the results will then overwrite whatever was here orignally. We can show 10 results at once, then include a paging feature. The api documentation shows how we can do that. -->
+         <div id="results"></div>
+     </main>
+ 
+     <!-- footer here -->
+     <!-- Maybe delete label since we have placeholder -->
+     <!-- <label for="search-query">Search:</label> -->
+     <!-- <input type="text" name="search-query" id="search-query" placeholder="Search..."><button id="search">Search</button><button id="filter">Filter</button> -->
+ 
+ </html>

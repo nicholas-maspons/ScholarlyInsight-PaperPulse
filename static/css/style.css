@@ -1,0 +1,124 @@
+:root {
+    --grey: #6c757d;
+    --dark-grey: #2c3e50; 
+    --almost-white: #ecf0f1; 
+    --primary: #197fc3;
+    --background: #1c2833; 
+    --text: #ffffff; 
+}
+
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: var(--dark-grey); 
+    padding: 20px 15px;
+    position: sticky;
+
+    display: flex;
+    flex-direction: row;  /* This is the default value. I am just explcitly stating it */
+    justify-content: space-between; /* horizontal */
+    align-items: center;  /* vertical | affects all children, but visually it affects all execpt the tallest, since the vertical center is relative to it */
+}
+
+h1, nav {
+    /* since there are 3 descendants of header, I make the first (h1) and last (nav) have the same width, so the middle is centered implicitly */
+    width: 300px;
+}
+
+header a {
+    text-decoration: none;
+    color: var(--text); 
+    cursor: pointer;  /* this is bc the search and filter buttons lose the pointer due to not having href */
+}
+
+.button {
+    padding: 2px 10px;
+    border: var(--almost-white) 2px solid; 
+    border-radius: 5px;
+}
+
+/* ul's default display is block, so it takes up as much space as possible, which is the size of its parent (nav) */
+ul {
+    list-style-type: none;
+    padding-left: 0;  /* ul's only have a default left-padding. Could've just used 'padding' */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.form-container {
+    display: none;
+    flex-direction: column;
+    gap: 40px;
+    color: var(--almost-white);
+
+    z-index: 100;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    width: 450px;
+    padding: 25px;
+    margin-top: 85px;  /* hardcoded */
+
+    background-color: var(--dark-grey); 
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+form label {
+    padding-right: 10px;
+}
+
+/* Displayed Article styling */
+
+.article {
+    border: 5px solid var(--dark-grey);
+    border-radius: 15px;
+
+    /* Change depending on screen size */
+    max-width: 950px; 
+    padding: 1rem;
+    margin-top: 2rem;
+
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.article h3 a {
+    text-decoration: none;
+    color: var(--primary);
+    font-size: 21px;
+}
+
+.article p strong {
+    font-size: 18px;
+}
+
+.article p {
+    font-size: 15px;
+}
+
+
+/* End Displayed Article styling */
+
+
+/* Media queries */
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .article {
+        max-width: 725px;
+    }
+
+}
+@media only screen and (max-width: 767px) {
+    .article {
+        max-width: 500px;
+    }
+}
