@@ -14,12 +14,13 @@ def index():
 
 @app.route('/search', methods=['GET'])
 def search():
-    query = request.args.get('query', type=str)
+    # query = request.args.get('query', type=str)
+    query = request.args.get('search_query', type=str)
     max_results = request.args.get('max_results', default=5, type=int)
 
     # Construct arXiv API query
     params = {
-        'search_query': f'all:{query}',
+        'search_query': query,
         'start': 0,
         'max_results': max_results,
         'sortBy': 'submittedDate',

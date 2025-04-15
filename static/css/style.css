@@ -13,6 +13,10 @@
     box-sizing: border-box;
 }
 
+body {
+    min-width: 700px;
+}
+
 header {
     background-color: var(--dark-grey); 
     padding: 20px 15px;
@@ -64,11 +68,10 @@ ul {
 
     width: 450px;
     padding: 25px;
-    margin-top: 85px;  /* hardcoded */
+    margin-top: 100px;  /* hardcoded */
 
     background-color: var(--dark-grey); 
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-radius: 10px;
 }
 
 form label {
@@ -116,9 +119,17 @@ form label {
         max-width: 725px;
     }
 
+    h1, nav {
+        width: 225px;
+    }
+
 }
 @media only screen and (max-width: 767px) {
     .article {
         max-width: 500px;
+    }
+
+    h1, nav {
+        width: 175px;
     }
 }
