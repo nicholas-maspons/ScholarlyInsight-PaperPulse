@@ -8,7 +8,7 @@ from xml.etree import ElementTree
 app = Flask(__name__)
 
 # Initialize Firebase Admin SDK
-cred = credentials.Certificate('scholarlyinsight-paperpulse-firebase-adminsdk-fbsvc-722a7f9fde.json')
+cred = credentials.Certificate('scholarlyinsight-paperpulse-firebase-adminsdk-fbsvc-ef33a94495.json')
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
